@@ -19,7 +19,20 @@ class SecondViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    @IBOutlet weak var input_txt: UITextField!
+    
+    @IBAction func Entername(_ sender: Any) {
+       var temp_arr = UserDefaults.standard.object(forKey: "fre_arr") as! [String]
+        temp_arr.append(input_txt.text!)
+         UserDefaults.standard.set(temp_arr, forKey: "fre_arr")
+        input_txt.text = ""
+        print(UserDefaults.standard.object(forKey: "fre_arr") as! [String])
+    }
 
 }
 
