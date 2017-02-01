@@ -10,13 +10,13 @@ import UIKit
 
 class FirstViewController: UIViewController , UITableViewDataSource , UITableViewDelegate {
 
-     var Friend_arr = ["jame","ken"]
+     var Friend_arr = [String?]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         //let arr = ["jame","ken"]
-       //  UserDefaults.standard.set(arr, forKey: "fre_arr")
+        UserDefaults.standard.set(Friend_arr, forKey: "fre_arr")
          Friend_arr = UserDefaults.standard.object(forKey: "fre_arr") as! [String]
         
         
@@ -50,7 +50,17 @@ class FirstViewController: UIViewController , UITableViewDataSource , UITableVie
         //cell.detailTextLabel?.text = "Name-Lastname"
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if( editingStyle == UITableViewCellEditingStyle.delete)
+        {
+            Friend_arr.remove(at: indexPath.row)
+           // Mytable.reloadData()
+            Mytable.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            UserDefaults.standard.set(Friend_arr, forKey: "fre_arr")
+        }
+    }
 
 
 }
